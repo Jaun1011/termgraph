@@ -6,10 +6,12 @@
 int main(){
 
 
+    TileSet *tiles = gamelogic_initialize_map();
+
+    colorengine_initScreen();
 
 
-    initScreen();
-    //printAllColors();
+
     return 1;
 }
 
