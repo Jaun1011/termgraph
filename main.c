@@ -6,9 +6,9 @@
 int main(){
 
 
-    TileSet *tiles = gamelogic_initialize_map();
+    //
 
-    colorengine_initScreen();
+   colorengine_initScreen();
 
 
 
