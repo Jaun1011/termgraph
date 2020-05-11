@@ -4,5 +4,6 @@
 
 typedef struct Array {
     size_t size;
+    size_t dimensions;
     void *value;
 } Array;

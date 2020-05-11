@@ -1,22 +1,16 @@
 #include "./colorengine.h"
 
-Color COLOR_BLACK = {0, 0, 0};
-Color COLOR_GREY_DARK = {78, 78, 78};
-Color COLOR_GREY_LIGHT = {170, 170, 170};
-Color COLOR_WHITE = {255, 255, 255};
 
 
-void colorengine_writeColorCodesToBuffer(char *buffer, size_t buffer_size, Color **p_colors, size_t layers, size_t height, size_t width)
-{
+
+void colorengine_writeColorCodesToBuffer(char *buffer, size_t buffer_size, Color **p_colors, size_t layers, size_t height, size_t width){
 
     int cx = 0;
     const int offset_z = SCREEN_WIDTH * SCREEN_HEIGHT;
     //cx += snprintf(buffer + cx, buffer_size - cx,  "\e[2J");
 
-    for (size_t y = 0; y < height; y += 2)
-    {
-        for (size_t x = 0; x < width; x++)
-        {
+    for (size_t y = 0; y < height; y += 2){
+        for (size_t x = 0; x < width; x++){
             const int offset_y = (y * width);
 
             Color **p_top = p_colors + x + offset_y;
@@ -73,19 +67,32 @@ void colorengine_writeColorCodesToBuffer(char *buffer, size_t buffer_size, Color
 
 void colorengine_initScreen(){
     
-    Color **colors;
 
-    gamelogic_initialize_map(colors);
 
-    debug_pointer(*colors);
+
+    Array tl = gamelogic_allocateTileLayer(1);
+
+
+
+    debug_int(tl.size);
+    TileLayer *tilelayer = (TileLayer*) tl.value;
+        
+    gamelogic_transformTileSetsIntoColor(&tl);
+    //gamelogic_initialize_map(&p_colors);
+
+
     char screenBuffer[LENGTH_SCREEN_BUFFER];
 
-    colorengine_writeColorCodesToBuffer(screenBuffer, sizeof(screenBuffer), colors, SCREEN_LAYERS, SCREEN_HEIGHT, SCREEN_WIDTH);
+    //colorengine_writeColorCodesToBuffer(screenBuffer, sizeof(screenBuffer), p_colors, SCREEN_LAYERS, SCREEN_HEIGHT, SCREEN_WIDTH);
+    
+    
+    
+   // gamelogic_transformTileSetsIntoColor(tileLayer, SCREEN_LAYERS, p_colors);
 
 
 
     
-    printf(screenBuffer);
+    //printf(screenBuffer);
     //usleep(60000);
 }
 
